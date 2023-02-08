@@ -2,9 +2,15 @@ const Car = require('../Models/Cars')
 
 exports.getAllCars = async (req, res,next) => {
     const {status} = req.query
+    const {result} = req.query
     if(status) {
 
        await Car.find({isRequested: status})
+            .sort({ date: -1 })
+            .then(cars => res.json(cars))
+    }
+    else if(result) {
+        await Car.find({isApproved: result})
             .sort({ date: -1 })
             .then(cars => res.json(cars))
     }
@@ -71,7 +77,7 @@ exports.approveCar = async (req, res,next) => {
     car.isApproved = true
 
     await car.save()
-    res.status(200).json({msg: "Request Successful "})
+    res.status(200).json({msg: " Approved "})
 }
 
 exports.deleteCar = async (req, res,next) => {

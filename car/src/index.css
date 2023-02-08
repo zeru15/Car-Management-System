@@ -44,15 +44,26 @@ code {
   height: "100vh";
 }
 
-.paperStyle {
-    padding: 20;
+@media only screen and (min-width: 768px) {
+  .paperStyle {
+    padding: 20px;
     height: '60vh';
     width: 680;
     margin: "20px auto";
   }
+}
 
+@media only screen and (min-width: 600px) {
   .paperStyle2 {
-    padding: 20;
+    padding: 20px;
+    height: '60vh';
+    width: 480;
+    margin: "20px auto";
+  }
+}
+
+  .paperStyle {
+    padding: 20px;
     height: '60vh';
     width: 480;
     margin: "20px auto";

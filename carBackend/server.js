@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const path = require('path')
 const config = require('config')
 const cors = require("cors")
+require('dotenv').config();
 
 
 const app = express();
@@ -12,11 +13,13 @@ app.use(cors())
 app.use(express.json());
 
 // DB Config
-const db = require('./Config/keys').mongoURI;
+const db = process.env.mongoURI;
 
 // Connect to mongo
 mongoose
-   .connect(db, {useNewUrlParser: true}) //Adding new mongo url parser
+   .connect(db, {
+      useNewUrlParser: true
+}) //Adding new mongo url parser
    .then(() => console.log('MongoDB Connected Successfully...'))
    .catch(err => console.log(err))
 
@@ -24,6 +27,8 @@ mongoose
 
 app.use((req,_,___)=>{console.log(req.body);___()})
 app.use('/api/cars', require('./Routes/api/cars'))
+app.use('/api/users', require('./Routes/api/users'))
+app.use('/api/auth', require('./Routes/api/auth'))
 
 //Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {

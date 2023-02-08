@@ -10,6 +10,7 @@ import Signup from './Screens/Signup';
 import { Provider } from 'react-redux';
 import Store from './Store';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ApprovedCar from './Screens/ApprovedCar';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path="/register" element={<CarRegister />} />
           <Route path="/availablecars" element={<AvailableCars />} />
           <Route path="/carrequests" element={<CarRequests />} />
+          <Route path="/approvedcar" element={<ApprovedCar />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
         </Routes>

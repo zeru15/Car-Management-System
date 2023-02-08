@@ -1,8 +1,9 @@
-import { GET_CARS, ADD_CAR, DELETE_CAR, CARS_LOADING, GET_REQUESTEDCARS, REQUEST_CAR, IS_REQUESTED } from '../Actions/Types';
+import { GET_CARS, ADD_CAR, DELETE_CAR, CARS_LOADING, GET_REQUESTEDCARS, REQUEST_CAR, IS_REQUESTED, GET_APPROVEDCAR, IS_APPROVED, APPROVE_CAR } from '../Actions/Types';
 
 const initialState = {
     cars: [],
     requestedCars: [],
+    approvedCar: [],
     loading: false
 };
 
@@ -43,6 +44,21 @@ export default function (state = initialState, action) {
                 ...state,
                 // cars: [action.payload, ...state.cars]
             };
+        case GET_APPROVEDCAR:
+            return {
+                ...state,
+                approvedCar: action.payload,
+                loading: false
+            };
+        case IS_APPROVED:
+            return {
+                ...state,
+                approvedCar: state.approvedCar.isApproved == true
+            };
+        case APPROVE_CAR:
+            return {
+                ...state
+            }
 
         case CARS_LOADING:
             return {

@@ -12,34 +12,28 @@ import 'primereact/resources/themes/lara-light-indigo/theme.css';
 import Sidebar from '../Components/Sidebar';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getCars, deleteCar, getRequestedCars, approveCar } from '../Actions/carAction';
+import { getCars, deleteCar, getRequestedCars, getApprovedCar } from '../Actions/carAction';
 
-class CarRequests extends Component {
+class ApprovedCar extends Component {
     componentDidMount() {
         // this.props.getCars();
-        this.props.getRequestedCars();
-
-    }
-    toggle = id => {
-        this.props.approveCar("63debf1b2c23e10570848812", id);
-    }
+        this.props.getApprovedCar();
+    
+      }
 
     render() {
-        const { requestedCars } = this.props.car
+        const { approvedCar } = this.props.car
 
-        const imageBodyTemplate = (requestedCars) => {
-            return <img src={`${requestedCars.img}`} alt={requestedCars.image} height="300px" width="300px" className="car-image" />;
-        }
-        const buttonBodyTemplate = (requestedCars) => {
-            return <Button disabled={requestedCars.isApproved ? true : false} onClick={this.toggle.bind(this, requestedCars._id)} size="small" className='p-button-success'> Approve </Button>;
+        const imageBodyTemplate = (approvedCar) => {
+            return <img src={`${approvedCar.img}`} alt={approvedCar.image} height="300px" width="300px" className="car-image" />;
         }
 
         const header = (
             <div className="table-header">
-                Requests
+                Approval Form
             </div>
         );
-        const footer = `In total there are ${requestedCars ? requestedCars.length : 0} cars.`;
+        // const footer = `In total there are ${approvedCar ? approvedCar.length : 0} cars.`;
 
 
         return (
@@ -51,12 +45,12 @@ class CarRequests extends Component {
                     {/* Requests Table */}
                     <div className="datatable-templating-demo mt-20 md:ml-20 sm:ml-10 ml-4 w-2/3 border-1 drop-shadow-lg ">
                         <div className="card ">
-                            <DataTable value={requestedCars} header={header} footer={footer} responsiveLayout="scroll">
+                            <DataTable value={approvedCar} header={header}  responsiveLayout="scroll">
                                 <Column field="_id" header="Car Id" ></Column>
                                 <Column field="img" header="Car Image" body={imageBodyTemplate}></Column>
                                 <Column field="plateNo" header="plateNo"></Column>
                                 <Column field="dName" header="Driver"></Column>
-                                <Column field="" header="Approve" body={buttonBodyTemplate}></Column>
+                                <Column field="isApproved" header="Approval"></Column>
                             </DataTable>
                         </div>
                     </div>
@@ -67,18 +61,17 @@ class CarRequests extends Component {
     }
 }
 
-CarRequests.propTypes = {
+ApprovedCar.propTypes = {
     getCars: PropTypes.func.isRequired,
     car: PropTypes.object.isRequired,
-    approveCar: PropTypes.func.isRequired
     // requestedCars: PropTypes.func.isRequired
-}
-
-const mapStateToProps = (state) => ({
+  }
+  
+  const mapStateToProps = (state) => ({
     car: state.car,
     // requestedCar: state.car
-})
-
-export default connect(mapStateToProps, { getCars, deleteCar, getRequestedCars, approveCar })(CarRequests);
+  })
+  
+  export default connect(mapStateToProps, { getCars, deleteCar, getRequestedCars, getApprovedCar })(ApprovedCar);
 
 // export default connect(mapStateToProps, { getRequestedCars })(CarRequests); 

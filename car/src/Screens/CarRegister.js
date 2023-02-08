@@ -101,7 +101,7 @@ class CarRegister extends Component {
           {/* Register Form */}
           <div className='mt-20 md:ml-40 sm:ml-20 ml-10 md:mr-4 sm:mr-4 sm:mr-4 mr-4  '>
             <Grid>
-              <Paper elevation={10} className ="md:paperStyle sm:paperStyle2 " >
+              <Paper elevation={10} className ="paperStyle paperStyle2 " >
                 <Grid align='center'>
                   <p className='text-2xl font-bold '> Register New Car </p><br />
                 </Grid>
@@ -127,7 +127,7 @@ class CarRegister extends Component {
                         </div>
                       </div>
                       <div>
-                        <div className='ml-8 '>
+                        <div className='md:ml-8 ml-0 '>
                           <Label for='car'> Driver Name: </Label>
                           <Input
                             placeholder='Enter Driver Name'

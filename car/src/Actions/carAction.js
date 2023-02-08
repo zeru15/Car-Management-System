@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { GET_CARS, ADD_CAR, DELETE_CAR, CARS_LOADING, GET_REQUESTEDCARS, REQUEST_CAR, IS_REQUESTED } from './Types'
+import { GET_CARS, ADD_CAR, DELETE_CAR, CARS_LOADING, GET_REQUESTEDCARS, REQUEST_CAR, IS_REQUESTED, APPROVE_CAR, GET_APPROVEDCAR } from './Types'
 
 export const getCars = () => async (dispatch) => {
     // dispatch(setCarsLoading());
@@ -41,13 +41,13 @@ export const addCar = car => dispatch => {
     console.log(car)
     // return
     // axios
-        // .post("http://localhost:5000/api/cars",car)
-        axios({
-            method: "post",
-            url: "http://localhost:5000/api/cars",
-            data: car,
-            headers: { "Content-Type": "multipart/form-data" },
-          })
+    // .post("http://localhost:5000/api/cars",car)
+    axios({
+        method: "post",
+        url: "http://localhost:5000/api/cars",
+        data: car,
+        headers: { "Content-Type": "multipart/form-data" },
+    })
         .then(res =>
             dispatch({
                 type: ADD_CAR,
@@ -55,26 +55,61 @@ export const addCar = car => dispatch => {
             }))
 }
 
-export const requestCar = ( userId, carId ) => dispatch => {
+export const requestCar = (userId, carId) => dispatch => {
     // console.log(car)
     // return
     // axios
-        // .post("http://localhost:5000/api/cars",car)
-        axios({
-            method: "put",
-            url: "http://localhost:5000/api/cars",
-            data: { 
-                userId,
-                carId
-            },
-            headers: { "Content-Type": "application/json" },
-          })
+    // .post("http://localhost:5000/api/cars",car)
+    axios({
+        method: "put",
+        url: "http://localhost:5000/api/cars",
+        data: {
+            userId,
+            carId
+        },
+        headers: { "Content-Type": "application/json" },
+    })
         .then(res =>
             dispatch({
                 type: REQUEST_CAR,
                 // payload: res.data
             }))
 }
+
+
+export const approveCar = (userId, carId) => dispatch => {
+    // console.log(car)
+    // return
+    // axios
+    // .post("http://localhost:5000/api/cars",car)
+    axios({
+        method: "put",
+        url: "http://localhost:5000/api/cars/result",
+        data: {
+            userId,
+            carId
+        },
+        headers: { "Content-Type": "application/json" },
+    })
+        .then(res =>
+            dispatch({
+                type: APPROVE_CAR,
+                // payload: res.data
+            }))
+}
+
+export const getApprovedCar = () => async (dispatch) => {
+    // dispatch(setCarsLoading());
+    await axios
+        .get('http://localhost:5000/api/cars?result=true')
+        .then(res => {
+            dispatch({
+                type: GET_APPROVEDCAR,
+                payload: res.data
+            })
+
+        })
+};
 
 
 export const setCarsLoading = () => {

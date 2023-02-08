@@ -2,10 +2,6 @@ const mongoose  = require('mongoose')
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
-    staffId : {
-        type: String,
-        required: true
-    },
     name : {
         type: String,
         required: true
@@ -18,11 +14,7 @@ const UserSchema = new Schema({
     password : {
         type: String,
         required: true
-    },
-    date : {
-        type: Date,
-        default : Date.now
     }
-})
+}, {timestamps:true})
 
 module.exports = User = mongoose.model('user' , UserSchema);
