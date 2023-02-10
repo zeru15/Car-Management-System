@@ -4,7 +4,8 @@ const initialState = {
     cars: [],
     requestedCars: [],
     approvedCar: [],
-    loading: false
+    loading: false,
+    user: []
 };
 
 export default function (state = initialState, action) {
@@ -13,7 +14,8 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 cars: action.payload,
-                loading: false
+                loading: false,
+                user: action.userPayload
             };
         case GET_REQUESTEDCARS:
             return {

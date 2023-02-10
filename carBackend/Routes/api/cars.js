@@ -17,23 +17,23 @@ router.get('/', carController.getAllCars)
 // @route POST api/cars
 // @desc Create a car
 // @access private
-router.post('/',upload.single('img'), auth, carController.addCar )
+router.post('/',upload.single('img'),  carController.addCar )
 
 // @route PUT api/cars
 // @desc Request a car
 // @access private
-router.put('/', auth, carController.requestCar )
+router.put('/', carController.requestCar )
 
 
 // @route PUT api/cars
 // @desc Approve car
 // @access private
-router.put('/result', auth, carController.approveCar )
+router.put('/result', carController.approveCar )
 
 
 // @route DELETE api/cars/:id
 // @desc delete a car
 // @access private
-router.delete('/:id', auth, carController.deleteCar)
+router.delete('/:id', carController.deleteCar)
 
 module.exports = router;

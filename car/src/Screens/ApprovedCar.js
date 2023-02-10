@@ -13,11 +13,13 @@ import Sidebar from '../Components/Sidebar';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getCars, deleteCar, getRequestedCars, getApprovedCar } from '../Actions/carAction';
+import { loadUser } from '../Actions/authActions';
 
 class ApprovedCar extends Component {
     componentDidMount() {
         // this.props.getCars();
         this.props.getApprovedCar();
+        this.props.loadUser();
     
       }
 
@@ -64,6 +66,7 @@ class ApprovedCar extends Component {
 ApprovedCar.propTypes = {
     getCars: PropTypes.func.isRequired,
     car: PropTypes.object.isRequired,
+    loadUser: PropTypes.func.isRequired,
     // requestedCars: PropTypes.func.isRequired
   }
   
@@ -72,6 +75,6 @@ ApprovedCar.propTypes = {
     // requestedCar: state.car
   })
   
-  export default connect(mapStateToProps, { getCars, deleteCar, getRequestedCars, getApprovedCar })(ApprovedCar);
+  export default connect(mapStateToProps, { getCars, deleteCar, getRequestedCars, getApprovedCar, loadUser })(ApprovedCar);
 
 // export default connect(mapStateToProps, { getRequestedCars })(CarRequests); 

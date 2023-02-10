@@ -1,7 +1,8 @@
 import axios from 'axios'
-import { GET_CARS, ADD_CAR, DELETE_CAR, CARS_LOADING, GET_REQUESTEDCARS, REQUEST_CAR, IS_REQUESTED, APPROVE_CAR, GET_APPROVEDCAR } from './Types'
+import { returnErrors } from './errorActions'
+import { GET_CARS, ADD_CAR, DELETE_CAR, CARS_LOADING, GET_REQUESTEDCARS, REQUEST_CAR, IS_REQUESTED, APPROVE_CAR, GET_APPROVEDCAR, USER_LOADED, AUTH_ERROR, USER_LOADING } from './Types'
 
-export const getCars = () => async (dispatch) => {
+export const getCars = () => async (dispatch, getState) => {
     // dispatch(setCarsLoading());
     await axios
         .get('http://localhost:5000/api/cars')
@@ -12,6 +13,24 @@ export const getCars = () => async (dispatch) => {
             })
 
         })
+
+    //     dispatch({ type: USER_LOADING});
+    
+   
+
+    // axios.get('http://localhost:5000/api/auth/user', tokenConfig(getState))
+    //      .then(res => 
+    //         dispatch({
+    //         type: USER_LOADED,
+    //         userPayload: res.data
+    //      })
+    //      )
+    //      .catch(err => {
+    //         dispatch(returnErrors(err.response.data, err.response.status ));
+    //         dispatch({
+    //         type: AUTH_ERROR
+    //      })
+    //     })
 };
 
 export const getRequestedCars = () => async (dispatch) => {
@@ -117,3 +136,24 @@ export const setCarsLoading = () => {
         type: CARS_LOADING
     }
 };
+
+
+
+// Setup config/headers and token
+// export const tokenConfig = getState => {
+//     //Get token from localStorage
+//     const token = getState().auth.token;
+
+//     //Headers
+//     const config = {
+//         headers: {
+//             "content-type": "application/json"
+//         }
+//     }
+
+//     //If token, Add to headers
+//     if(token) {
+//         config.headers['x-auth-token'] = token;
+//     }
+//     return config;
+// }

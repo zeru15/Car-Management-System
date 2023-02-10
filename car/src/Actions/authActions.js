@@ -54,7 +54,7 @@ export const register = ({ name, email, password }) => dispatch => {
 }
 
 //Login User
-export const login = ({ email, password }) => dispatch => {
+export const login = ({ email, password , isAdmin }) => dispatch => {
 
     //Headers
     const config = {
@@ -64,13 +64,14 @@ export const login = ({ email, password }) => dispatch => {
     }
 
     //Request body
-    const body = JSON.stringify({ email, password })
+    const body = JSON.stringify({ email, password, isAdmin })
 
     axios.post('http://localhost:5000/api/auth', body, config )
          .then(res => dispatch({
             type: LOGIN_SUCCESS,
             payload: res.data
-         }))
+         })
+         )
          .catch(err => {
             dispatch(returnErrors(err.response.data, err.response.status, 'LOGIN_FAIL' ));
             dispatch({

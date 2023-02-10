@@ -72,7 +72,7 @@ exports.approveCar = async (req, res,next) => {
     //     return res.status(404).json({msg: "Car Not Found!"})
     // }
     console.log(car);
-    car.requestedBy = userId
+    // car.requestedBy = userId
     car.isRequested = true
     car.isApproved = true
 

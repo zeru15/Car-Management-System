@@ -65,17 +65,19 @@ class Signup extends Component {
 
         //Atempt to register
         this.props.register(newUser);
-
-        // <Navigate to="http://localhost:3000/availablecars" replace={true} />
+        
     }
 
     render() {
+
+        const { token } = this.props.auth
 
         const paperStyle = { padding: 20, height: '85vh', width: 280, margin: "80px auto" }
         const avatarStyle = { backgroundColor: '#1bbd7e' }
         const btnstyle = { margin: '8px 0' }
         return (
             <div className='heroBg h-screen fixed w-full' >
+                { token? <Navigate to="/availablecars" replace={true} /> : null}
                 <Grid>
                     <Paper elevation={10} style={paperStyle}>
                         <Grid align='center'>
@@ -139,8 +141,9 @@ class Signup extends Component {
 }
 
 const mapStateToProps = state => ({
-    isAuthenticated: state.auth.isAuthenticated,
-    error: state.error
+    isAuthenticated: state.car.isAuthenticated,
+    error: state.error,
+    auth: state.auth
 });
 
 export default connect(mapStateToProps, { register, clearErrors })(Signup); 

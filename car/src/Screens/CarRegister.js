@@ -11,6 +11,8 @@ import {
 } from 'reactstrap';
 import { connect } from 'react-redux';
 import { addCar } from './../Actions/carAction'
+import { loadUser } from '../Actions/authActions';
+import { PropTypes } from 'prop-types'
 
 
 
@@ -32,6 +34,10 @@ class CarRegister extends Component {
     modal: false,
   }
 
+  componentDidMount() {
+    this.props.loadUser();
+  }
+
   onChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value,
@@ -49,7 +55,7 @@ class CarRegister extends Component {
   };
 
   onSubmit = e => {
-    // e.preventDefault();
+    e.preventDefault();
     const formData = new FormData();
     formData.append("img", this.state.selectedImage)
     formData.append("model", this.state.model)
@@ -101,7 +107,7 @@ class CarRegister extends Component {
           {/* Register Form */}
           <div className='mt-20 md:ml-40 sm:ml-20 ml-10 md:mr-4 sm:mr-4 sm:mr-4 mr-4  '>
             <Grid>
-              <Paper elevation={10} className ="paperStyle paperStyle2 " >
+              <Paper elevation={10} className="paperStyle paperStyle2 " >
                 <Grid align='center'>
                   <p className='text-2xl font-bold '> Register New Car </p><br />
                 </Grid>
@@ -168,9 +174,15 @@ class CarRegister extends Component {
   }
 }
 
+CarRegister.propTypes = {
+  addCar: PropTypes.func.isRequired,
+  loadUser: PropTypes.func.isRequired
+}
+
 const mapStateToProps = state => ({
-  car: state.car
+  car: state.car,
+  auth: state.auth
 });
 
 
-export default connect(mapStateToProps, { addCar })(CarRegister);
+export default connect(mapStateToProps, { addCar, loadUser })(CarRegister);

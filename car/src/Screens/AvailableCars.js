@@ -12,6 +12,7 @@ import Sidebar from './../Components/Sidebar'
 
 import { connect } from 'react-redux';
 import { getCars, deleteCar, getRequestedCars,requestCar } from '../Actions/carAction';
+import { loadUser } from '../Actions/authActions';
 import PropTypes from 'prop-types';
 import {
   Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input,
@@ -33,6 +34,7 @@ class AvailableCars extends Component {
   }
 
   componentDidMount() {
+    this.props.loadUser();
     this.props.getCars();
     this.props.getRequestedCars();
 
@@ -46,7 +48,7 @@ class AvailableCars extends Component {
   render() {
     const { cars } = this.props.car;
 
-    
+    const { token, user } = this.props.auth;
 
     const header = (
       <img alt="Card" src="https://primereact.org/images/usercard.png" />
@@ -101,11 +103,15 @@ class AvailableCars extends Component {
 
                     </CardText>
 
-                    <Button disabled={car.isRequested ? true:false} onClick={this.toggle.bind(this,car._id) } size="small"> Request Car </Button>
-
-                    <Button onClick={this.onDeleteClick.bind(this, car._id)} size="small">
+                    { (user.name == "cars123" || user.name == "dispatcher123") ? <Button onClick={this.onDeleteClick.bind(this, car._id)} size="small">
                       Remove Car
                     </Button>
+                    : 
+                    <Button disabled={car.isRequested ? true:false} onClick={this.toggle.bind(this,car._id) } size="small"> Request Car </Button>
+                    }
+                    
+
+                    
                   </CardBody>
 
                   <Modal
@@ -157,13 +163,15 @@ AvailableCars.propTypes = {
   getCars: PropTypes.func.isRequired,
   car: PropTypes.object.isRequired,
   // requestedCars: PropTypes.func.isRequired,
-  requestCar: PropTypes.func.isRequired
+  requestCar: PropTypes.func.isRequired,
+  loadUser: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => ({
   car: state.car,
+  auth: state.auth
   // requestCar: state.requestCar
   
 })
 
-export default connect(mapStateToProps, { getCars, deleteCar, getRequestedCars, requestCar })(AvailableCars);
+export default connect(mapStateToProps, { getCars, deleteCar, getRequestedCars, requestCar, loadUser })(AvailableCars);
