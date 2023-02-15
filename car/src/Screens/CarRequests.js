@@ -63,7 +63,7 @@ class CarRequests extends Component {
                                 <Column field="plateNo" header="plateNo"></Column>
                                 <Column field="dName" header="Driver"></Column>
                                 <Column field="" header="Requested By" body={requestedByBodyTemplate} ></Column>
-                                {(user.name == "cars123") ?
+                                {(user.name === "admin") ?
                                     <Column field="" header="Approve" body={buttonBodyTemplate}></Column>
                                     : null
                                 }

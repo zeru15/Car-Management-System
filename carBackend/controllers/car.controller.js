@@ -26,7 +26,6 @@ exports.addCar = async (req, res,next) => {
     console.log("body")
     const cloudinary = require('cloudinary').v2;
 
-
     // Configuration 
     cloudinary.config({
       cloud_name: "dzalpusxw",
@@ -75,6 +74,7 @@ exports.approveCar = async (req, res,next) => {
     // car.requestedBy = userId
     car.isRequested = true
     car.isApproved = true
+    car.approvedFor = userId
 
     await car.save()
     res.status(200).json({msg: " Approved "})

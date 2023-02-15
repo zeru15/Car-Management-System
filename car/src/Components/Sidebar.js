@@ -19,7 +19,7 @@ class Sidebar extends Component {
 
                 {!token ? <Navigate to="/login" replace={true} /> : null}
                 
-                {(user.name == "cars123" || user.name == "dispatcher123") ?
+                {(user.name == "admin" || user.name == "dispatcher123") ?
                     <div>
                         <div className='mt-16  py-2  w-full text-2xl bg-red-700 text-white hover:bg-red-700 '>
                             <a href="/register" className='text-white no-underline md:ml-4'> Register Car </a>

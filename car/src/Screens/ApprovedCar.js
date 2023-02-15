@@ -20,14 +20,19 @@ class ApprovedCar extends Component {
         // this.props.getCars();
         this.props.getApprovedCar();
         this.props.loadUser();
-    
-      }
+
+    }
 
     render() {
         const { approvedCar } = this.props.car
 
+        const { user } = this.props.auth
+
         const imageBodyTemplate = (approvedCar) => {
             return <img src={`${approvedCar.img}`} alt={approvedCar.image} height="300px" width="300px" className="car-image" />;
+        }
+        const requestedByBodyTemplate = (approvedCar) => {
+            return approvedCar.requestedBy
         }
 
         const header = (
@@ -45,17 +50,23 @@ class ApprovedCar extends Component {
                 <div className='flex '>
                     <Sidebar />
                     {/* Requests Table */}
-                    <div className="datatable-templating-demo mt-20 md:ml-20 sm:ml-10 ml-4 w-2/3 border-1 drop-shadow-lg ">
-                        <div className="card ">
-                            <DataTable value={approvedCar} header={header}  responsiveLayout="scroll">
-                                <Column field="_id" header="Car Id" ></Column>
-                                <Column field="img" header="Car Image" body={imageBodyTemplate}></Column>
-                                <Column field="plateNo" header="plateNo"></Column>
-                                <Column field="dName" header="Driver"></Column>
-                                <Column field="isApproved" header="Approval"></Column>
-                            </DataTable>
+                    {(user.id == approvedCar.requestedBy) ?
+                        <div className="datatable-templating-demo mt-20 md:ml-20 sm:ml-10 ml-4 w-2/3 border-1 drop-shadow-lg ">
+                            <div className="card ">
+                                <DataTable value={approvedCar} header={header} responsiveLayout="scroll">
+                                    <Column field="_id" header="Car Id" ></Column>
+                                    <Column field="img" header="Car Image" body={imageBodyTemplate}></Column>
+                                    <Column field="plateNo" header="plateNo"></Column>
+                                    <Column field="dName" header="Driver"></Column>
+                                    <Column field="" header="Requested By" body={requestedByBodyTemplate} ></Column>
+                                    <Column field="isApproved" header="Approval"></Column>
+                                </DataTable>
+                            </div>
                         </div>
-                    </div>
+                         :
+                        null
+                    } 
+
                 </div>
 
             </div>
@@ -68,13 +79,14 @@ ApprovedCar.propTypes = {
     car: PropTypes.object.isRequired,
     loadUser: PropTypes.func.isRequired,
     // requestedCars: PropTypes.func.isRequired
-  }
-  
-  const mapStateToProps = (state) => ({
+}
+
+const mapStateToProps = (state) => ({
     car: state.car,
+    auth: state.auth
     // requestedCar: state.car
-  })
-  
-  export default connect(mapStateToProps, { getCars, deleteCar, getRequestedCars, getApprovedCar, loadUser })(ApprovedCar);
+})
+
+export default connect(mapStateToProps, { getCars, deleteCar, getRequestedCars, getApprovedCar, loadUser })(ApprovedCar);
 
 // export default connect(mapStateToProps, { getRequestedCars })(CarRequests); 

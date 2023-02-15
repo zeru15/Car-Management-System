@@ -35,6 +35,9 @@ const CarSchema = new Schema({
         ref:"user",
         default: null
     },
+    approvedFor: {
+        type: String
+    }
 },{timestamps:true})
 
 module.exports = Car = mongoose.model('car' , CarSchema);

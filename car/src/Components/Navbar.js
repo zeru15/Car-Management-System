@@ -1,8 +1,15 @@
-import React from 'react'
+import React, { Component } from 'react'
 import logo from "./../Images/Car-Manager-logo.png"
+import { connect } from 'react-redux';
 
-function Navbar() {
+class Navbar extends Component {
+
+  render() {
+
+    const { user } = this.props.auth
+  
   return (
+
     <div>
         {/* Header */}
         <div className='flex justify-between items-center bg-gray-800 py-6 w-full top-0  '>
@@ -10,9 +17,19 @@ function Navbar() {
           <div>
             <img src={logo} width="300px" height="300px" alt="Car Management Logo" />
           </div>
+          {/* Right Side */}
+          <div className='text-white text-xl mr-4'> Welcome, {user.name} </div>
         </div>
     </div>
   )
 }
 
-export default Navbar
+}
+
+const mapStateToProps = state => ({
+  isAuthenticated: state.car.isAuthenticated,
+  error: state.error,
+  auth: state.auth
+});
+
+export default connect( mapStateToProps)(Navbar)

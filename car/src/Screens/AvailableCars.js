@@ -25,8 +25,8 @@ class AvailableCars extends Component {
     modal: false,
     // buttonStatus: "false"
   }
-  toggle = id => {
-    this.props.requestCar("63debf1b2c23e10570848812",id);
+  toggle = (userId, carId) => {
+    this.props.requestCar(userId,carId);
     this.setState({
       modal: !this.state.modal,
       // buttonStatus: !this.state.buttonStatus
@@ -103,11 +103,11 @@ class AvailableCars extends Component {
 
                     </CardText>
 
-                    { (user.name == "cars123" || user.name == "dispatcher123") ? <Button onClick={this.onDeleteClick.bind(this, car._id)} size="small">
+                    { (user.name == "admin" ) ? <Button onClick={this.onDeleteClick.bind(this, car._id)} size="small">
                       Remove Car
                     </Button>
                     : 
-                    <Button disabled={car.isRequested ? true:false} onClick={this.toggle.bind(this,car._id) } size="small"> Request Car </Button>
+                    <Button disabled={car.isRequested ? true:false} onClick={this.toggle.bind(this, user._id, car._id) } size="small"> Request Car </Button>
                     }
                     
 
